@@ -1,0 +1,11 @@
+{
+  "name": "git-to-ebook",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@octokit/rest": "^16.27.0",
+    "lodash": "^4.17.11",
+    "markdown-pdf": "^9.0.0"
+  }
+}
