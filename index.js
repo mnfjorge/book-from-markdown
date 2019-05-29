@@ -3,11 +3,24 @@ const inquirer = require('inquirer'),
   book = require('./book');
 
 (async () => {
+  const input = await inquirer.prompt([
+    {
+      name: 'owner',
+      type: 'input'
+    }, {
+      name: 'repo',
+      type: 'input'
+    }, {
+      name: 'branch',
+      type: 'input',
+      default: 'master'
+    }, {
+      name: 'paths',
+      type: 'input'
+    }
+  ])
 
-  
-  const owner = 'getify'
-  const repo = 'You-Dont-Know-JS'
-  const branch = 'refs/heads/master'
+  const { owner, repo, branch, paths } = input
 
   const tree = (await git.getRepoTree({
     repo,
@@ -15,10 +28,10 @@ const inquirer = require('inquirer'),
     branch
   })).data.tree
 
-  await book.generateBook({ owner, repo, tree, bookName: 'up & going' })
-  await book.generateBook({ owner, repo, tree, bookName: 'scope & closures' })
-  await book.generateBook({ owner, repo, tree, bookName: 'this & object prototypes' })
-  await book.generateBook({ owner, repo, tree, bookName: 'types & grammar' })
-  await book.generateBook({ owner, repo, tree, bookName: 'async & performance' })
-  await book.generateBook({ owner, repo, tree, bookName: 'es6 & beyond' })
+  for (var i in paths.split(',')) {
+    const path = paths[i]
+    console.log('Working', path)
+
+    await book.generateBook({ owner, repo, tree, bookName: path })
+  }
 })()

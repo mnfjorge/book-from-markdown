@@ -8,7 +8,7 @@ exports.getRepoTree = async ({ repo, owner, branch }) => {
     repo: repo
   })
 
-  const branchData = _.find(refs.data, r => r.ref === branch)
+  const branchData = _.find(refs.data, r => r.ref === `refs/heads/${branch}`)
 
   return await octokit.git.getTree({
     owner,
